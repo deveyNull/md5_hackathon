@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+    <html>
+    <head>
+
+
+      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.js"></script>
+
+          <script type="text/javascript"   src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCnUmBSeHRlNK3js8cymW5BytR_-y_vVLc"></script>
+
+
+      <style type="text/css">
+
+
+        #map-canvas {
+         height: 660px;
+         width: 1000px;
+         overflow: hidden;
+         float: left;
+         border: thin solid #333;
+         }
+        #capture {
+         height: 660px;
+         width: 300px;
+         overflow: hidden;
+         float: left;
+         background-color: #ECECFB;
+         border: thin solid #333;
+         border-left: none;
+         }
+          #wrapper { position: relative; }
+   #over_map { position: absolute; top: 10px; left: 120px; z-index: 150;  background-color:#f4f4f2; }
+   #over_capture { position: absolute; top: 3px; left: 1200px; z-index: 150;  background-color:#f4f4f2; }
+
+
+#body {
+width: 100%;
+height: 100%;
+}
+      </style>
+      <script language="JavaScript">
+      function toggleCitizen(source) {
+  checkboxes = document.getElementsByName('citizen');
+  for(var i=0, n=checkboxes.length;i<n;i++) {
+    checkboxes[i].checked = source.checked;
+    filterMarkers('1');
+    filterMarkers('2');
+    filterMarkers('3');
+    filterMarkers('4');
+    filterMarkers('5');
+
+  }
+}
+  function toggleEmergency(source) {
+checkboxes = document.getElementsByName('emergency');
+for(var i=0, n=checkboxes.length;i<n;i++) {
+checkboxes[i].checked = source.checked;
+filterMarkers('6');
+filterMarkers('7');
+filterMarkers('8');
+filterMarkers('9');
+
+}
+}
+function toggleMilitary(source) {
+checkboxes = document.getElementsByName('military');
+for(var i=0, n=checkboxes.length;i<n;i++) {
+checkboxes[i].checked = source.checked;
+filterMarkers('10');
+filterMarkers('11');
+filterMarkers('12');
+filterMarkers('13');
+
+}
+}
+function toggleVolunteers(source) {
+checkboxes = document.getElementsByName('volunteers');
+for(var i=0, n=checkboxes.length;i<n;i++) {
+checkboxes[i].checked = source.checked;
+filterMarkers('14');
+filterMarkers('15');
+filterMarkers('16');
+filterMarkers('17');
+
+}
+}
+function toggleInnovation(source) {
+checkboxes = document.getElementsByName('innovate');
+for(var i=0, n=checkboxes.length;i<n;i++) {
+checkboxes[i].checked = source.checked;
+filterMarkers('18');
+filterMarkers('19');
+filterMarkers('20');
+filterMarkers('21');
+filterMarkers('22');
+
+
+
+}
+}
+      </script>
+      <title> MD5</title>
+
+    </head>
+
+
+    <body>
+
+      <div id="wrapper">
+         <div id="google_map">
+<div id="map-canvas"></div>
+         </div>
+
+         <div id="over_map">
+         <details  >
+                 <summary><b>[All]</b></summary>
+
+           <details>
+                 <summary><b>Citizens</b></summary>
+                 <input id="29" type="checkbox" align="center" name="citizen" checked onClick="toggleCitizen(this)" />All
+
+           <input id="1" type="checkbox" align="center" name="citizen" checked onchange="filterMarkers('1')"/>Aid Stations
+           <input id="2" type="checkbox" align="center" name="citizen" checked onchange="filterMarkers('2')"/>Temporary Housing
+           <input id="3" type="checkbox" align="center" name="citizen" checked onchange="filterMarkers('3')"/>Food
+           <input id="4" type="checkbox" align="center" name="citizen" checked onchange="filterMarkers('4')"/>Medical
+           <input id="5" type="checkbox" align="center" name="citizen" checked onchange="filterMarkers('5')"/>Evacuation
+
+
+             </details>
+             <details>
+                 <summary><b>Emergency Services</b></summary>
+           <input id="28" type="checkbox" align="center" name="emergency" checked onClick="toggleEmergency(this)"/>All
+
+           <input id="6" type="checkbox" align="center" name="emergency" checked onchange="filterMarkers('6')"/>Emergency
+           <input id="7" type="checkbox" align="center" name="emergency" checked onchange="filterMarkers('7')"/>Response in Progress</b>
+           <input id="8" type="checkbox" align="center" name="emergency" checked onchange="filterMarkers('8')"/>Police Centers
+           <input id="9" type="checkbox" align="center" name="emergency" checked onchange="filterMarkers('9')"/>Fire Stations
+             </details>
+             <details>
+                 <summary><b>Military</b></summary>
+
+                 <input id="27" type="checkbox" align="center" name="military" checked checked onClick="toggleMilitary(this)"/>All
+           <input id="10" type="checkbox" align="center" name="military" checked onchange="filterMarkers('10')"/>Forward Operating Bases
+           <input id="11" type="checkbox" align="center" name="military" checked onchange="filterMarkers('11')"/>Supply Depot
+           <input id="12" type="checkbox" align="center" name="military" checked onchange="filterMarkers('12')"/>Local Headquarters
+           <input id="13" type="checkbox" align="center" name="military" checked onchange="filterMarkers('13')"/>Headquarters
+
+             </details>
+             <details>
+                <summary><b>Volunteers</b></summary>
+
+                 <input id="26" type="checkbox" align="center" name="volunteers" checked checked onClick="toggleVolunteers(this)"/>All
+           <input id="14" type="checkbox" align="center" name="volunteers" checked onchange="filterMarkers('14')"/>Volunteer Depot
+           <input id="15" type="checkbox" align="center" name="volunteers" checked onchange="filterMarkers('15')"/>Donation Depot
+           <input id="16" type="checkbox" align="center" name="volunteers" checked onchange="filterMarkers('16')"/>Volunteer FOB
+           <input id="17" type="checkbox" align="center" name="volunteers" checked onchange="filterMarkers('17')"/>Volunteer Headquarters
+
+             </details>
+             <details>
+                 <summary><b>Innovative Data Streams</b></summary>
+
+                 <input id="innovateUgh" type="checkbox" align="center" checked="false" name="innovateUgh"  onClick="toggleInnovation(this)"/>All
+           <input id="18" type="checkbox" align="center" name="innovate"  checked="false" onchange="filterMarkers('18')"/>REA Good
+           <input id="19" type="checkbox" align="center" name="innovate" checked="false" onchange="filterMarkers('19')"/>REA Bad
+           <input id="20" type="checkbox" align="center" name="innovate"  checked="false" onchange="filterMarkers('20')"/>Twitter
+           <input id="21" type="checkbox" align="center" name="innovate"  checked="false" onchange="filterMarkers('21')"/>Facebook
+           <input id="22" type="checkbox" align="center" name="innovate" checked="false" onchange="filterMarkers('22')"/>MirageXML
+
+
+             </details>
+             </details>
+         </div>
+      </div>
+            <div id= "over_capture"><button id="myBtn" position="right" selected><b>Show NewsFeed</b></button></div>
+
+      <div id="capture"></div>
+
+      <script>
+      var htmlFeed = '<b> <h1>News Feed </h1> </b> <h2>Good News!</h2><h3>10.16.16 08:22</h3><p>Things are going on, it is a wild time to be here in Jakarta. Really something else. Good thing we are so situationally aware.</p><h2> There is more news!</h2><h3>10.16.16 20:22</h3><p>Things happened!!!!! Things are happening, stuff is going on, it is a wild time to be here in Jakarta. Really something else. Good thing we are so situationally aware.</p><h2> There is more news!</h2><h3>10.16.16 20:22</h3><p>Things happened!!!!! Things are happening, stuff is going on, it is a wild time to be here in Jakarta. Really something else. Good thing we are so situationally aware.</p>'
+      document.getElementById("myBtn").addEventListener("click", function(){
+          document.getElementById("capture").innerHTML = htmlFeed;
+      });
+      document.getElementById("capture").innerHTML = htmlFeed;
+      var checkboxes = document.getElementsByTagName('innovate');
+
+      </script>
+
+
+      <script type='text/javascript'>//<![CDATA[
+        var infoWindow = new google.maps.InfoWindow();
+        var names = {
+       "1": "Aid Stations",
+       "2": "Temporary Housing",
+       "3": "Food",
+       "4": "Medical",
+       "5": "Evacuation",
+       "6": "Emergency",
+       "7": "Response in Progress",
+       "8": "Police Stations",
+       "9": "Fire Stations",
+       "10": "Forward Operating Bases",
+       "11": "Supply Depot",
+       "12": "Local Headquarters",
+       "13": "Headquarters",
+       "14": "Volunteer Depot",
+       "15": "Donation Depot",
+       "16": "Volunteer FOB",
+       "17": "Volunteer Headquarters",
+       "18": "REA Good",
+       "19": "REA Bad",
+       "20": "Twitter",
+       "21": "Facebook",
+       "22": "MirageML"
+
+      };
+      var names = {
+     "1": '<h1>Aid Stations</h1><p> Hope Station</p><p>Visit our Facebook Page</p><input type="button" onclick="location.href="http://facebook.com";" value="Go to Facebook" /><p>Lorem ipsum dolor sit amet, qui et vocibus deleniti constituam, quodsi delectus vel ut, habeo ridens ne ius. Pro nulla movet definiebas eu, vero diceret ne mei, in has idque nihil. Ei atqui complectitur cum, vel sumo deserunt ne, has alia atqui mnesarchum ea. Ut dicant vituperatoribus est, no per hinc audiam senserit. Eu quod aeque est, mei voluptua atomorum an. Quo an quas malorum.In cibo semper pri. Te probatus electram democritum pri, pro scripta oportere an. Veritus intellegat id ius, duo aliquid fabulas voluptatibus at, cum eu corrumpit intellegat adversarium. Eros nostro ex eos, modo aliquando et duo. Duo graece aliquam mnesarchum ea, at nisl exerci mentitum duo.</p>',
+     "2": '<h1>Temporary Housing</h1><p> Hope Station</p><p>Visit our Facebook Page</p><input type="button" onclick="location.href="http://facebook.com";" value="Go to Facebook" /><p>Lorem ipsum dolor sit amet, qui et vocibus deleniti constituam, quodsi delectus vel ut, habeo ridens ne ius. Pro nulla movet definiebas eu, vero diceret ne mei, in has idque nihil. Ei atqui complectitur cum, vel sumo deserunt ne, has alia atqui mnesarchum ea. Ut dicant vituperatoribus est, no per hinc audiam senserit. Eu quod aeque est, mei voluptua atomorum an. Quo an quas malorum.In cibo semper pri. Te probatus electram democritum pri, pro scripta oportere an. Veritus intellegat id ius, duo aliquid fabulas voluptatibus at, cum eu corrumpit intellegat adversarium. Eros nostro ex eos, modo aliquando et duo. Duo graece aliquam mnesarchum ea, at nisl exerci mentitum duo.</p>',
+
+     "3": '<h1>Food</h1><p> Hope Station</p><p>Visit our Facebook Page</p><input type="button" onclick="location.href="http://facebook.com";" value="Go to Facebook" /><p>Lorem ipsum dolor sit amet, qui et vocibus deleniti constituam, quodsi delectus vel ut, habeo ridens ne ius. Pro nulla movet definiebas eu, vero diceret ne mei, in has idque nihil. Ei atqui complectitur cum, vel sumo deserunt ne, has alia atqui mnesarchum ea. Ut dicant vituperatoribus est, no per hinc audiam senserit. Eu quod aeque est, mei voluptua atomorum an. Quo an quas malorum.In cibo semper pri. Te probatus electram democritum pri, pro scripta oportere an. Veritus intellegat id ius, duo aliquid fabulas voluptatibus at, cum eu corrumpit intellegat adversarium. Eros nostro ex eos, modo aliquando et duo. Duo graece aliquam mnesarchum ea, at nisl exerci mentitum duo.</p>',
+     "4": '<h1>Medical Center</h1><p> Hope Station</p><p>Visit our Facebook Page</p><input type="button" onclick="location.href="http://facebook.com";" value="Go to Facebook" /><p>Lorem ipsum dolor sit amet, qui et vocibus deleniti constituam, quodsi delectus vel ut, habeo ridens ne ius. Pro nulla movet definiebas eu, vero diceret ne mei, in has idque nihil. Ei atqui complectitur cum, vel sumo deserunt ne, has alia atqui mnesarchum ea. Ut dicant vituperatoribus est, no per hinc audiam senserit. Eu quod aeque est, mei voluptua atomorum an. Quo an quas malorum.In cibo semper pri. Te probatus electram democritum pri, pro scripta oportere an. Veritus intellegat id ius, duo aliquid fabulas voluptatibus at, cum eu corrumpit intellegat adversarium. Eros nostro ex eos, modo aliquando et duo. Duo graece aliquam mnesarchum ea, at nisl exerci mentitum duo.</p>',
+     "5": '<h1>Evacuation Route</h1><p> Bus Stop</p><p>Bring Your Stuff: Visit our Facebook Page</p><input type="button" onclick="location.href="http://facebook.com";" value="Go to Facebook" /><p>Lorem ipsum dolor sit amet, qui et vocibus deleniti constituam, quodsi delectus vel ut, habeo ridens ne ius. Pro nulla movet definiebas eu, vero diceret ne mei, in has idque nihil. Ei atqui complectitur cum, vel sumo deserunt ne, has alia atqui mnesarchum ea. Ut dicant vituperatoribus est, no per hinc audiam senserit. Eu quod aeque est, mei voluptua atomorum an. Quo an quas malorum.In cibo semper pri. Te probatus electram democritum pri, pro scripta oportere an. Veritus intellegat id ius, duo aliquid fabulas voluptatibus at, cum eu corrumpit intellegat adversarium. Eros nostro ex eos, modo aliquando et duo. Duo graece aliquam mnesarchum ea, at nisl exerci mentitum duo.</p>',
+     "6": "<h1>Emergency</h1><p>Reported power lines down</p>",
+     "7": "<h1>Response in Progress</h1><p>Officers in route to fire</p>",
+     "8": '<h1>Police Station</h1><p> Hope Station</p><p>Visit our Facebook Page for coordination</p><input type="button" onclick="location.href="http://facebook.com";" value="Go to Facebook" /><p>Lorem ipsum dolor sit amet, qui et vocibus deleniti constituam, quodsi delectus vel ut, habeo ridens ne ius. Pro nulla movet definiebas eu, vero diceret ne mei, in has idque nihil. Ei atqui complectitur cum, vel sumo deserunt ne, has alia atqui mnesarchum ea. Ut dicant vituperatoribus est, no per hinc audiam senserit. Eu quod aeque est, mei voluptua atomorum an. Quo an quas malorum.In cibo semper pri. Te probatus electram democritum pri, pro scripta oportere an. Veritus intellegat id ius, duo aliquid fabulas voluptatibus at, cum eu corrumpit intellegat adversarium. Eros nostro ex eos, modo aliquando et duo. Duo graece aliquam mnesarchum ea, at nisl exerci mentitum duo.</p>',
+     "9": '<h1>Fire Station</h1><p>Hope Station</p><p>Visit our Facebook Page for coordination</p><input type="button" onclick="location.href="http://facebook.com";" value="Go to Facebook" /><p>Lorem ipsum dolor sit amet, qui et vocibus deleniti constituam, quodsi delectus vel ut, habeo ridens ne ius. Pro nulla movet definiebas eu, vero diceret ne mei, in has idque nihil. Ei atqui complectitur cum, vel sumo deserunt ne, has alia atqui mnesarchum ea. Ut dicant vituperatoribus est, no per hinc audiam senserit. Eu quod aeque est, mei voluptua atomorum an. Quo an quas malorum.In cibo semper pri. Te probatus electram democritum pri, pro scripta oportere an. Veritus intellegat id ius, duo aliquid fabulas voluptatibus at, cum eu corrumpit intellegat adversarium. Eros nostro ex eos, modo aliquando et duo. Duo graece aliquam mnesarchum ea, at nisl exerci mentitum duo.</p>',
+     "10": '<h1>Forward Operating Base</h1><p> Camp Hope</p><p>Visit our Command Page for coordination</p><input type="button" onclick="location.href="http://army.mil";" value="Go to Command Page" /><p>Lorem ipsum dolor sit amet, qui et vocibus deleniti constituam, quodsi delectus vel ut, habeo ridens ne ius. Pro nulla movet definiebas eu, vero diceret ne mei, in has idque nihil. Ei atqui complectitur cum, vel sumo deserunt ne, has alia atqui mnesarchum ea. Ut dicant vituperatoribus est, no per hinc audiam senserit. Eu quod aeque est, mei voluptua atomorum an. Quo an quas malorum.In cibo semper pri. Te probatus electram democritum pri, pro scripta oportere an. Veritus intellegat id ius, duo aliquid fabulas voluptatibus at, cum eu corrumpit intellegat adversarium. Eros nostro ex eos, modo aliquando et duo. Duo graece aliquam mnesarchum ea, at nisl exerci mentitum duo.</p>',
+     "11": '<h1>Supply Depot</h1><p> Camp Hope</p><p>Visit our Command Page for coordination</p><input type="button" onclick="location.href="http://army.mil";" value="Go to Command Page" /><p>Lorem ipsum dolor sit amet, qui et vocibus deleniti constituam, quodsi delectus vel ut, habeo ridens ne ius. Pro nulla movet definiebas eu, vero diceret ne mei, in has idque nihil. Ei atqui complectitur cum, vel sumo deserunt ne, has alia atqui mnesarchum ea. Ut dicant vituperatoribus est, no per hinc audiam senserit. Eu quod aeque est, mei voluptua atomorum an. Quo an quas malorum.In cibo semper pri. Te probatus electram democritum pri, pro scripta oportere an. Veritus intellegat id ius, duo aliquid fabulas voluptatibus at, cum eu corrumpit intellegat adversarium. Eros nostro ex eos, modo aliquando et duo. Duo graece aliquam mnesarchum ea, at nisl exerci mentitum duo.</p>',
+     "12": '<h1>Local Headquarters</h1><p> Camp Hope</p><p>Visit our Command Page for coordination</p><input type="button" onclick="location.href="http://army.mil";" value="Go to Command Page" /><p>Lorem ipsum dolor sit amet, qui et vocibus deleniti constituam, quodsi delectus vel ut, habeo ridens ne ius. Pro nulla movet definiebas eu, vero diceret ne mei, in has idque nihil. Ei atqui complectitur cum, vel sumo deserunt ne, has alia atqui mnesarchum ea. Ut dicant vituperatoribus est, no per hinc audiam senserit. Eu quod aeque est, mei voluptua atomorum an. Quo an quas malorum.In cibo semper pri. Te probatus electram democritum pri, pro scripta oportere an. Veritus intellegat id ius, duo aliquid fabulas voluptatibus at, cum eu corrumpit intellegat adversarium. Eros nostro ex eos, modo aliquando et duo. Duo graece aliquam mnesarchum ea, at nisl exerci mentitum duo.</p>',
+     "13": '<h1>Headquarters</h1><p> Camp Hope</p><p>Visit our Command Page for coordination</p><input type="button" onclick="location.href="http://army.mil";" value="Go to Command Page" /><p>Lorem ipsum dolor sit amet, qui et vocibus deleniti constituam, quodsi delectus vel ut, habeo ridens ne ius. Pro nulla movet definiebas eu, vero diceret ne mei, in has idque nihil. Ei atqui complectitur cum, vel sumo deserunt ne, has alia atqui mnesarchum ea. Ut dicant vituperatoribus est, no per hinc audiam senserit. Eu quod aeque est, mei voluptua atomorum an. Quo an quas malorum.In cibo semper pri. Te probatus electram democritum pri, pro scripta oportere an. Veritus intellegat id ius, duo aliquid fabulas voluptatibus at, cum eu corrumpit intellegat adversarium. Eros nostro ex eos, modo aliquando et duo. Duo graece aliquam mnesarchum ea, at nisl exerci mentitum duo.</p>',
+     "14": '<h1>Volunteer Depot</h1><p> Camp Hope</p><p>Visit our Facebook Page for coordination</p><input type="button" onclick="location.href="http://facebook.com";" value="Go to Facebook" /><p>Lorem ipsum dolor sit amet, qui et vocibus deleniti constituam, quodsi delectus vel ut, habeo ridens ne ius. Pro nulla movet definiebas eu, vero diceret ne mei, in has idque nihil. Ei atqui complectitur cum, vel sumo deserunt ne, has alia atqui mnesarchum ea. Ut dicant vituperatoribus est, no per hinc audiam senserit. Eu quod aeque est, mei voluptua atomorum an. Quo an quas malorum.In cibo semper pri. Te probatus electram democritum pri, pro scripta oportere an. Veritus intellegat id ius, duo aliquid fabulas voluptatibus at, cum eu corrumpit intellegat adversarium. Eros nostro ex eos, modo aliquando et duo. Duo graece aliquam mnesarchum ea, at nisl exerci mentitum duo.</p>',
+     "15": '<h1>Donation Depot</h1><p> Camp Hope</p><p>Visit our Facebook Page for coordination</p><input type="button" onclick="location.href="http://facebook.com";" value="Go to Facebook" /><p>Lorem ipsum dolor sit amet, qui et vocibus deleniti constituam, quodsi delectus vel ut, habeo ridens ne ius. Pro nulla movet definiebas eu, vero diceret ne mei, in has idque nihil. Ei atqui complectitur cum, vel sumo deserunt ne, has alia atqui mnesarchum ea. Ut dicant vituperatoribus est, no per hinc audiam senserit. Eu quod aeque est, mei voluptua atomorum an. Quo an quas malorum.In cibo semper pri. Te probatus electram democritum pri, pro scripta oportere an. Veritus intellegat id ius, duo aliquid fabulas voluptatibus at, cum eu corrumpit intellegat adversarium. Eros nostro ex eos, modo aliquando et duo. Duo graece aliquam mnesarchum ea, at nisl exerci mentitum duo.</p>',
+     "16": '<h1>Volunteer FOB</h1><p> Camp Hope</p><p>Visit our Facebook Page for coordination</p><input type="button" onclick="location.href="http://facebook.com";" value="Go to Facebook" /><p>Lorem ipsum dolor sit amet, qui et vocibus deleniti constituam, quodsi delectus vel ut, habeo ridens ne ius. Pro nulla movet definiebas eu, vero diceret ne mei, in has idque nihil. Ei atqui complectitur cum, vel sumo deserunt ne, has alia atqui mnesarchum ea. Ut dicant vituperatoribus est, no per hinc audiam senserit. Eu quod aeque est, mei voluptua atomorum an. Quo an quas malorum.In cibo semper pri. Te probatus electram democritum pri, pro scripta oportere an. Veritus intellegat id ius, duo aliquid fabulas voluptatibus at, cum eu corrumpit intellegat adversarium. Eros nostro ex eos, modo aliquando et duo. Duo graece aliquam mnesarchum ea, at nisl exerci mentitum duo.</p>',
+     "17": '<h1>Volunteer Headquarters</h1><p> Camp Hope</p><p>Visit our Facebook Page for coordination</p><input type="button" onclick="location.href="http://facebook.com";" value="Go to Facebook" /><p>Lorem ipsum dolor sit amet, qui et vocibus deleniti constituam, quodsi delectus vel ut, habeo ridens ne ius. Pro nulla movet definiebas eu, vero diceret ne mei, in has idque nihil. Ei atqui complectitur cum, vel sumo deserunt ne, has alia atqui mnesarchum ea. Ut dicant vituperatoribus est, no per hinc audiam senserit. Eu quod aeque est, mei voluptua atomorum an. Quo an quas malorum.In cibo semper pri. Te probatus electram democritum pri, pro scripta oportere an. Veritus intellegat id ius, duo aliquid fabulas voluptatibus at, cum eu corrumpit intellegat adversarium. Eros nostro ex eos, modo aliquando et duo. Duo graece aliquam mnesarchum ea, at nisl exerci mentitum duo.</p>',
+     "18": "<h1>REA Good</h1>This is a good water sensor. Lets hope it stays green.",
+     "19": "<h1>REA Bad</h1>This is a bad sensor!",
+     "20": '<h1>Nominal Twitter Embed Page</h1>',
+     "21": "<h1>Nominal Facebook Embed Page</h1>",
+     "22": '<h1>MirageML</h1><p><iframe width="560" height="315" src="https://www.youtube.com/embed/vPj6OsetJbA" frameborder="0" allowfullscreen></iframe></p>'
+
+    };
+
+
+
+        var markerGroups = {
+       "1": [],
+       "2": [],
+       "3": [],
+       "4": [],
+       "5": [],
+       "6": [],
+       "7": [],
+       "8": [],
+       "9": [],
+       "10": [],
+       "11": [],
+       "12": [],
+       "13": [],
+       "14": [],
+       "15": [],
+       "16": [],
+       "17": [],
+       "18": [],
+       "19": [],
+       "20": [],
+       "21": [],
+       "22": []
+
+
+      };
+      //https://sites.google.com/site/gmapsdevelopment/
+      var icons = {
+       "1": "http://maps.google.com/mapfiles/kml/pal3/icon18.png",
+       "2": "http://maps.google.com/mapfiles/kml/pal3/icon48.png",
+       "3": "http://maps.google.com/mapfiles/kml/pal2/icon34.png",
+       "4": "http://maps.google.com/mapfiles/kml/pal3/icon38.png",
+       "5": "http://maps.google.com/mapfiles/kml/pal4/icon54.png",
+       "6": "http://maps.google.com/mapfiles/kml/pal3/icon51.png",
+       "7": "http://maps.google.com/mapfiles/kml/pal3/icon59.png",
+       "8": "http://maps.google.com/mapfiles/ms/micons/police.png",
+       "9": "http://maps.google.com/mapfiles/ms/micons/firedept.png",
+       "10": "http://maps.google.com/mapfiles/kml/pal4/icon49.png",
+       "11": "http://maps.google.com/mapfiles/kml/pal4/icon48.png",
+       "12": "http://maps.google.com/mapfiles/kml/pal4/icon51.png",
+       "13": "http://maps.google.com/mapfiles/kml/pal4/icon50.png",
+       "14": "http://maps.google.com/mapfiles/ms/micons/man.png",
+       "15": "http://maps.google.com/mapfiles/ms/micons/shopping.png",
+       "16": "http://maps.google.com/mapfiles/kml/pal4/icon47.png",
+       "17": "http://maps.google.com/mapfiles/kml/pal4/icon39.png",
+       "18": "http://labs.google.com/ridefinder/images/mm_20_green.png",
+       "19": "http://labs.google.com/ridefinder/images/mm_20_red.png",
+       "20": "https://abs.twimg.com/favicons/favicon.ico",
+       "21": "http://www-tc.pbs.org/parents/expert-tips-advice/wp-content/themes/experttipsandadvice/images/24x24-facebook-icon.png",
+       "22": "http://maps.google.com/mapfiles/kml/pal3/icon40.png"
+
+      };
+
+
+        function initialize() {
+          var mapOptions = {
+            zoom: 10,
+            center: new google.maps.LatLng(-6.1745,106.8227)
+          };
+            var map = new google.maps.Map(document.getElementById("map-canvas"), mapOptions);
+
+            // Create our info window content
+
+  function createMarker(point, name, id, html) {
+      var marker = new google.maps.Marker({
+          map: map,
+          position: point,
+          id: id,
+          icon: icons[id]
+      });
+      markerGroups[id].push(marker);
+      var html = "<br><b>"+names[id]+"</b><br>" + html[id] + '<br>';
+
+
+
+      google.maps.event.addListener(marker, 'click', function() {
+          //var a = infoWindow.setContent(html);
+          //infoWindow.open(map, marker);
+          var content = html;
+          var testimonial = document.getElementById('capture');
+          testimonial.innerHTML = content;
+      });
+      return marker;
+      }
+      function randLatLng(y0, x0, rd){
+        //var y0 = 40.730610;
+        //var x0 = -73.935242;
+        //var rd = 10500 / 111300;
+
+        var u = Math.random();
+        var v = Math.random();
+
+        var w = rd * Math.sqrt(u);
+        var t = 2 * Math.PI * v;
+        var x = w * Math.cos(t);
+        var y = w * Math.sin(t);
+
+        var xp = x / Math.cos(y0);
+
+        return new google.maps.LatLng((y + y0),(xp + x0));
+          }
+      function populate(id, number, lat, lng, front){
+
+          for(var i=0;i<number;i++){
+
+          var html = "This is a something";
+        	createMarker(randLatLng(lat, lng,front / 111300), name, id, html);
+        	}
+        	}
+
+      function yardPopulate(lat, lng, front){
+      populate(1,100, lat, lng, front);
+      populate(2,30, lat, lng, front);
+      populate(3,15, lat, lng, front);
+      populate(4,10, lat, lng, front);
+      populate(4,25, lat, lng, front);
+      populate(5,50, lat, lng, front);
+      populate(6,15, lat, lng, front);
+      populate(7,20, lat, lng, front);
+      populate(8,10, lat, lng, front);
+      populate(9,10, lat, lng, front);
+      populate(10,25, lat, lng, front);
+      populate(11,10, lat, lng, front);
+      populate(12,20, lat, lng, front);
+      populate(13,5, lat, lng, front);
+      populate(14,40, lat, lng, front);
+      populate(15,40, lat, lng, front);
+      populate(16,40, lat, lng, front);
+      populate(17,20, lat, lng, front);
+      populate(18,10, lat, lng, front);
+      populate(19,20, lat, lng, front);
+      populate(20,40, lat, lng, front);
+      populate(21,40, lat, lng, front);
+      populate(22,40, lat, lng, front)
+      }
+
+      yardPopulate(-6.2745,106.8227, 30500);
+      yardPopulate(-6.2845,106.69227, 30500);
+      yardPopulate(-6.2745,106.9227, 30000);
+      yardPopulate(-6.3745,106.99227, 27000);
+
+
+
+
+      //function populate(){var Connect = new XMLHttpRequest();
+
+        //    	Connect.open("GET", "test.xml", false);
+          //  	Connect.setRequestHeader("Content-Type", "text/xml");
+            //	Connect.send(null);
+            	//// Place the response in an XML document.
+            	//var TheDocument = Connect.responseXML;
+          //  	var markers = TheDocument.documentElement.getElementsByTagName("marker");
+            //      for (var i = 0; i < markers.length; i++) {
+              //    var html = markers[i].getAttribute("html");
+                //  var id = markers[i].getAttribute("id");
+                 // var point = new google.maps.LatLng(
+                  //    parseFloat(markers[i].getAttribute("lat")),
+                   //   parseFloat(markers[i].getAttribute("lng")));
+
+
+        //	createMarker(point, name, id, html);
+        //	}
+        //	}
+
+
+
+      //populate();
+      }
+      function filterMarkers(type){
+      if($('#'+type).is(':checked')){
+
+          for(var i=0;i<markerGroups[type].length;i++){
+              markerGroups[type][i].setVisible(true);
+          }
+      }
+
+      else{
+
+          for(var i=0;i<markerGroups[type].length;i++){
+              markerGroups[type][i].setVisible(false);
+          }
+      }
+
+
+      }
+        google.maps.event.addDomListener(window, 'load', initialize);
+
+
+
+
+      //]]>
+
+      </script>
+
+
+
+    </body>
+
+    </html>
